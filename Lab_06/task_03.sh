@@ -19,8 +19,7 @@ restore_backup() {
   if [[ -n "$3" ]]; then
     backup_filename="$2"
     restore_directory="$3"
-
-    tar xzf "$backup_filename" -C "$restore_directory" "$*:4" | cat
+    tar xzf "$backup_filename" -C "$restore_directory" "${@:5}"
   else
     backup_filename="$1"
     restore_directory="$2"
