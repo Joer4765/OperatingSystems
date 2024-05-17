@@ -7,6 +7,7 @@ PERIOD="day"
 
 while getopts "d:p:" opt; do
   case $opt in
+#   потестити лапки
     d) LOG_DIR="$OPTARG";;
     p) PERIOD="$OPTARG";;
     \?) echo "Unknown option: -$OPTARG" >&2;;
@@ -46,11 +47,10 @@ analyze_logs() {
     local line_lower
     line_lower=$(echo "$line" | awk '{print tolower($0)}')
 
-    if [[ $record_date -ge $date_string ]]; then
-
-      if [[ "$line_lower" = *warning* ]]; then
+    if [[ "$record_date" -ge "$date_string" ]]; then
+      if [[ "$line_lower" = *"warning"* ]]; then
         ((warnings++))
-      elif [[ "$line_lower" = *error* ]]; then
+      elif [[ "$line_lower" = *"error"* ]]; then
         ((errors++))
       fi
     fi
